@@ -7,6 +7,6 @@
 
 final class Environment {
     static var serverUrl: String {
-        "https://restcountries.com"
+        "https://restcountries.com/"
     }
 }

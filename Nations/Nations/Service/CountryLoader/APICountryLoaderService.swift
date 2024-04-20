@@ -7,18 +7,20 @@
 
 import Foundation
 
-protocol APICountryLoaderProtocol: APIServiceProtocol {
-    func loadCountries(with details: [String]) async throws -> APICountryLoaderService.FetchCountriesResponse
+typealias Country = APICountryLoaderService.FetchCountriesResponse.Country
+
+protocol APICountryLoaderServiceProtocol: APIServiceProtocol {
+    func loadCountries(with details: [String]) async throws -> [Country]
 }
 
 final class APICountryLoaderService {}
 
-extension APICountryLoaderService: APICountryLoaderProtocol {
-    func loadCountries(with details: [String]) async throws -> APICountryLoaderService.FetchCountriesResponse {
+extension APICountryLoaderService: APICountryLoaderServiceProtocol {
+    func loadCountries(with details: [String]) async throws -> [Country] {
         let request = APICountryRequest.fetchCountries(request: APICountryLoaderService.FetchCountriesRequest(details: details))
         let data = try await executeApiRequest(request)
         do {
-            return try JSONDecoder().decode(APICountryLoaderService.FetchCountriesResponse.self, from: data)
+            return try JSONDecoder().decode([Country].self, from: data)
         } catch {
             throw APIError.couldNotParseToSpecifiedModel
         }
@@ -31,15 +33,15 @@ extension APICountryLoaderService {
     }
 
     struct FetchCountriesResponse: Decodable {
-        let countries: [Country]
-
         struct Country: Decodable {
             let flags: Flag
             let name: NameConfig
+            let capital: [String]
+            let region: String
+            let flag: String
         }
 
         struct Flag: Decodable {
-            let png: String
             let svg: String
             let alt: String
         }
