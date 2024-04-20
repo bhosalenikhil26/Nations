@@ -11,7 +11,11 @@ import SwiftUI
 struct NationsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CountriesView(viewModel: getCountriesModel())
         }
+    }
+
+    private func getCountriesModel() -> CountriesViewModel {
+        CountriesViewModel(countryLoaderService: CountryLoaderService(apiCountryLoaderService: APICountryLoaderService()))
     }
 }

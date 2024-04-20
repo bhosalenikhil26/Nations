@@ -8,19 +8,19 @@
 import Foundation
 
 protocol CountryLoaderServiceProtocol {
-    func loadCountries(with details: [String]) async throws -> APICountryLoaderService.FetchCountriesResponse
+    func loadCountries(with details: [String]) async throws -> [Country]
 }
 
 final class CountryLoaderService {
-    private let apiCountryLoaderService: APICountryLoaderProtocol
+    private let apiCountryLoaderService: APICountryLoaderServiceProtocol
 
-    init(apiCountryLoaderService: APICountryLoaderProtocol) {
+    init(apiCountryLoaderService: APICountryLoaderServiceProtocol) {
         self.apiCountryLoaderService = apiCountryLoaderService
     }
 }
 
 extension CountryLoaderService: CountryLoaderServiceProtocol {
-    func loadCountries(with details: [String]) async throws -> APICountryLoaderService.FetchCountriesResponse {
+    func loadCountries(with details: [String]) async throws -> [Country] {
         try await apiCountryLoaderService.loadCountries(with: details)
     }
 }
