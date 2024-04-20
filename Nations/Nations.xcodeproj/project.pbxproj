@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0ABE8162BD3DAAF0092EB7A /* CountriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ABE8152BD3DAAF0092EB7A /* CountriesViewModel.swift */; };
 		C0FB783B2BD3B568000E5B4F /* NationsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FB783A2BD3B568000E5B4F /* NationsApp.swift */; };
-		C0FB783D2BD3B568000E5B4F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FB783C2BD3B568000E5B4F /* ContentView.swift */; };
+		C0FB783D2BD3B568000E5B4F /* CountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FB783C2BD3B568000E5B4F /* CountriesView.swift */; };
 		C0FB783F2BD3B569000E5B4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0FB783E2BD3B569000E5B4F /* Assets.xcassets */; };
 		C0FB78422BD3B569000E5B4F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0FB78412BD3B569000E5B4F /* Preview Assets.xcassets */; };
 		C0FB78562BD3B569000E5B4F /* NationsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FB78552BD3B569000E5B4F /* NationsUITests.swift */; };
@@ -39,9 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C0ABE8152BD3DAAF0092EB7A /* CountriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewModel.swift; sourceTree = "<group>"; };
 		C0FB78372BD3B568000E5B4F /* Nations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FB783A2BD3B568000E5B4F /* NationsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationsApp.swift; sourceTree = "<group>"; };
-		C0FB783C2BD3B568000E5B4F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C0FB783C2BD3B568000E5B4F /* CountriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesView.swift; sourceTree = "<group>"; };
 		C0FB783E2BD3B569000E5B4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0FB78412BD3B569000E5B4F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C0FB78472BD3B569000E5B4F /* NationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +83,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C0ABE8142BD3DA450092EB7A /* CountriesView */ = {
+			isa = PBXGroup;
+			children = (
+				C0FB783C2BD3B568000E5B4F /* CountriesView.swift */,
+				C0ABE8152BD3DAAF0092EB7A /* CountriesViewModel.swift */,
+			);
+			path = CountriesView;
+			sourceTree = "<group>";
+		};
 		C0FB782E2BD3B568000E5B4F = {
 			isa = PBXGroup;
 			children = (
@@ -104,10 +115,10 @@
 		C0FB78392BD3B568000E5B4F /* Nations */ = {
 			isa = PBXGroup;
 			children = (
+				C0ABE8142BD3DA450092EB7A /* CountriesView */,
 				C0FB78652BD3B800000E5B4F /* Utilities */,
 				C0FB78642BD3B774000E5B4F /* Service */,
 				C0FB783A2BD3B568000E5B4F /* NationsApp.swift */,
-				C0FB783C2BD3B568000E5B4F /* ContentView.swift */,
 				C0FB783E2BD3B569000E5B4F /* Assets.xcassets */,
 				C0FB78402BD3B569000E5B4F /* Preview Content */,
 			);
@@ -299,7 +310,8 @@
 				C0FB786D2BD3B90E000E5B4F /* APICountryLoaderService.swift in Sources */,
 				C0FB78732BD3C3FC000E5B4F /* CountryLoaderService.swift in Sources */,
 				C0FB78712BD3BF79000E5B4F /* APIService.swift in Sources */,
-				C0FB783D2BD3B568000E5B4F /* ContentView.swift in Sources */,
+				C0ABE8162BD3DAAF0092EB7A /* CountriesViewModel.swift in Sources */,
+				C0FB783D2BD3B568000E5B4F /* CountriesView.swift in Sources */,
 				C0FB786F2BD3BA72000E5B4F /* APICountryLoaderRequest.swift in Sources */,
 				C0FB78692BD3B800000E5B4F /* Environment.swift in Sources */,
 				C0FB783B2BD3B568000E5B4F /* NationsApp.swift in Sources */,
