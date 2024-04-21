@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C00090B62BD55A3900FD70F0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00090B52BD55A3900FD70F0 /* ActivityIndicator.swift */; };
 		C0ABE8162BD3DAAF0092EB7A /* CountriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ABE8152BD3DAAF0092EB7A /* CountriesViewModel.swift */; };
 		C0FB783B2BD3B568000E5B4F /* NationsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FB783A2BD3B568000E5B4F /* NationsApp.swift */; };
 		C0FB783D2BD3B568000E5B4F /* CountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FB783C2BD3B568000E5B4F /* CountriesView.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C00090B52BD55A3900FD70F0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		C0ABE8152BD3DAAF0092EB7A /* CountriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewModel.swift; sourceTree = "<group>"; };
 		C0FB78372BD3B568000E5B4F /* Nations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FB783A2BD3B568000E5B4F /* NationsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationsApp.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				C0FB78662BD3B800000E5B4F /* Environment.swift */,
+				C00090B52BD55A3900FD70F0 /* ActivityIndicator.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				C0FB783D2BD3B568000E5B4F /* CountriesView.swift in Sources */,
 				C0FB786F2BD3BA72000E5B4F /* APICountryLoaderRequest.swift in Sources */,
 				C0FB78692BD3B800000E5B4F /* Environment.swift in Sources */,
+				C00090B62BD55A3900FD70F0 /* ActivityIndicator.swift in Sources */,
 				C0FB783B2BD3B568000E5B4F /* NationsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
