@@ -2,49 +2,45 @@
 //  CountryLoaderServiceTests.swift
 //  NationsTests
 //
-//  Created by Nikhil Bhosale on 2024-04-20.
+//  Created by Nikhil Bhosale on 2024-04-21.
 //
 
 import XCTest
+import Foundation
 @testable import Nations
 
 final class CountryLoaderServiceTests: XCTestCase {
-    private var mockAPIRequest: MockAPIRequest!
-    private var apiService: APICountryLoaderService!
+    private var mockApiService: MockApiService!
+    private var countryLoaderService: CountryLoaderService!
 
     override func setUpWithError() throws {
-        mockAPIRequest = MockAPIRequest()
-        apiService = APICountryLoaderService()
+        mockApiService = MockApiService()
+        countryLoaderService = CountryLoaderService(apiCountryLoaderService: mockApiService)
     }
 
     override func tearDownWithError() throws {
-        mockAPIRequest = nil
-        apiService = nil
+        mockApiService = nil
+        countryLoaderService = nil
     }
 
-    func testExecuteRequest_whenURLIsNotPresent_shouldThrowInvalidUrlError() async {
-        mockAPIRequest.url = nil
-        do {
-            _ = try await apiService.executeApiRequest(mockAPIRequest)
-            XCTFail()
-        } catch let error as APIError {
-            XCTAssertTrue(error == APIError.invalidUrl)
-        } catch {
-            XCTFail()
-        }
-    }
-
-    func testExecuteRequest_whenURLIsValid_shouldCallAPI() async {
-        mockAPIRequest.url = URL(string: "https://restcountries.com/v3.1/all?fields=name,flags")
-        do {
-            let data = try await apiService.executeApiRequest(mockAPIRequest)
-            XCTAssertNotNil(data)
-        } catch {
-            XCTFail()
-        }
+    func testGetImage_whenImageIsDownloadedSuccessful_shouldBeCacheedInService() async {
+        mockApiService.downloadFileCallCounter = 0
+        _ = await countryLoaderService.getImage(with: "testUrl")
+        XCTAssertTrue(mockApiService.downloadFileCallCounter == 1)
+        _ = await countryLoaderService.getImage(with: "testUrl")
+        XCTAssertTrue(mockApiService.downloadFileCallCounter == 1)
     }
 }
 
-private final class MockAPIRequest: APIRequest {
-    var url: URL?
+final class MockApiService: APICountryLoaderServiceProtocol {
+    var downloadFileCallCounter: Int = 0
+
+    func loadCountries(with details: [String]) async throws -> [Country] {
+        []
+    }
+    
+    func downloadFile(for url: String) async throws -> Data {
+        downloadFileCallCounter = +1
+        return UIImage(named: "close")!.pngData()!
+    }
 }

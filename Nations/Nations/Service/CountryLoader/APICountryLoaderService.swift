@@ -11,6 +11,7 @@ typealias Country = APICountryLoaderService.FetchCountriesResponse.Country
 
 protocol APICountryLoaderServiceProtocol: APIServiceProtocol {
     func loadCountries(with details: [String]) async throws -> [Country]
+    func downloadFile(for url: String) async throws -> Data
 }
 
 final class APICountryLoaderService {}
@@ -25,6 +26,11 @@ extension APICountryLoaderService: APICountryLoaderServiceProtocol {
             throw APIError.couldNotParseToSpecifiedModel
         }
     }
+
+    func downloadFile(for url: String) async throws -> Data {
+        let request = APICountryRequest.downloadFile(url: url)
+        return try await executeApiRequest(request)
+    }
 }
 
 extension APICountryLoaderService {
@@ -33,22 +39,27 @@ extension APICountryLoaderService {
     }
 
     struct FetchCountriesResponse: Decodable {
-        struct Country: Decodable {
+        struct Country: Decodable, Hashable {
             let flags: Flag
             let name: NameConfig
             let capital: [String]
             let region: String
             let flag: String
+            let idd: CountryCode
         }
 
-        struct Flag: Decodable {
-            let svg: String
-            let alt: String
+        struct Flag: Decodable, Hashable {
+            let png: String
         }
 
-        struct NameConfig: Decodable {
-            let common: String
+        struct NameConfig: Decodable, Hashable {
             let official: String
+            let common: String
+        }
+
+        struct CountryCode: Decodable, Hashable {
+            let root: String
+            let suffixes: [String]
         }
     }
 }
