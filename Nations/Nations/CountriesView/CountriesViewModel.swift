@@ -8,23 +8,26 @@
 import SwiftUI
 
 protocol CountriesViewModelProtocol: ObservableObject {
-    var countriesWithFlag: [CountryWithFlag] { get }
+    var countries: [Country] { get }
     var loadingState: LoadingState { get }
     var showAlert: Bool { get set }
+    var shouldShowCountryDetails: Bool { get set }
+    var countryDetailsViewModel: CountryDetailsViewModel? { get }
 
     func viewAppeared() async
-    func didSelectCountry(at index: Int)
+    func didSelectCountry(_ country: Country) async
     func didTapRetry() async
 }
 
 final class CountriesViewModel {
-    @Published var countriesWithFlag: [CountryWithFlag] = []
+    @Published var countries: [Country] = []
     @Published var loadingState: LoadingState = .initial
     @Published var showAlert = false
+    @Published var shouldShowCountryDetails = false
+
+    var countryDetailsViewModel: CountryDetailsViewModel?
 
     private let countryLoaderService: CountryLoaderServiceProtocol
-    private var countries: [Country] = []
-
 
     init(countryLoaderService: CountryLoaderServiceProtocol) {
         self.countryLoaderService = countryLoaderService
@@ -36,7 +39,10 @@ extension CountriesViewModel: CountriesViewModelProtocol {
         await loadCountries()
     }
 
-    func didSelectCountry(at index: Int) {}
+    func didSelectCountry(_ country: Country) async {
+        countryDetailsViewModel = CountryDetailsViewModel(country: country, countryLoaderService: countryLoaderService)
+        await shouldShowCountryDetails(true)
+    }
 
     func didTapRetry() async {
       await loadCountries()
@@ -45,7 +51,7 @@ extension CountriesViewModel: CountriesViewModelProtocol {
 
 private extension CountriesViewModel {
     @MainActor func updateCountries(_ countries: [Country]) async {
-        countriesWithFlag = countries.map { CountryWithFlag(name: $0.name.common, flag: $0.flag) }
+        self.countries = countries
     }
 
     @MainActor func updateState(_ state: LoadingState) {
@@ -56,11 +62,15 @@ private extension CountriesViewModel {
         showAlert = shouldShow
     }
 
+    @MainActor func shouldShowCountryDetails(_ shouldShow: Bool) {
+        shouldShowCountryDetails = shouldShow
+    }
+
     func loadCountries() async {
         await updateState(.loading)
         do {
-            countries = try await countryLoaderService.loadCountries(with: ["name", "flag", "region", "currency", "languages", "capital", "flags"])
-            await updateCountries(countries)
+            let fetchedCountries = try await countryLoaderService.loadCountries(with: ["name", "flag", "region", "currency", "languages", "capital", "flags", "idd"])
+            await updateCountries(fetchedCountries)
             await updateState(.loaded)
         } catch {
             print("Error while loading countries", error) //Log remote error
@@ -68,11 +78,6 @@ private extension CountriesViewModel {
             await updateState(.initial)
         }
     }
-}
-
-struct CountryWithFlag {
-    let name: String
-    let flag: String
 }
 
 enum LoadingState {
