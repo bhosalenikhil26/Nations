@@ -17,28 +17,32 @@ public enum HTTPMethod: String {
 
 enum APICountryRequest: APIRequest {
     case fetchCountries(request: APICountryLoaderService.FetchCountriesRequest)
+    case downloadFile(url: String)
 
     var baseURLPath: String {
         switch self {
-        case .fetchCountries: return Environment.serverUrl
+        case .fetchCountries: return ServerEnvironment.serverUrl
+        case .downloadFile: return ""
         }
     }
 
     var path: String {
         switch self {
         case .fetchCountries: return "v3.1/all"
+        case .downloadFile(let url): return url
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .fetchCountries: return .get
+        case .fetchCountries, .downloadFile: return .get
         }
     }
 
     var queryParameters: [String: String?]? {
         switch self {
         case .fetchCountries(let request): return ["fields": request.details.map { $0 }.joined(separator: ",")]
+        case .downloadFile: return nil
         }
     }
 
